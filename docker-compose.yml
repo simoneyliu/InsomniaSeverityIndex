@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+    nodejs:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: nodejs-insomnia-severity-index
+        container_name: nodejs-insomnia-severity-index
+        restart: unless-stopped
+        env_file: .env
+        environment:
+            - DB_CONNECTION=$DB_CONNECTION
+        ports:
+            - "3000:3000"
+        volumes:
+            - .:/home/node/app
+            - /home/node/app/node_modules
+        command: npm start
+    db:
+        image: mongo
+        container_name: db
+        restart: unless-stopped
+        env_file: .env
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+            - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+        volumes:
+            - /data/db
