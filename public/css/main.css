@@ -1,3 +1,11 @@
+:root {
+    --background-color-one: #9FBFC5;
+    --background-color-two: #6885F9;
+    --background-color-three: #5C5B6B;
+    --background-color-four: #CDB5B4;
+    --background-color-five: #EBECEB;
+}
+
 body {
     margin: 0;
     background-color: black;
@@ -37,6 +45,21 @@ body {
 
 .question {
     font-weight: bold;
+}
+
+.question_wrapper {
+    padding-bottom: 20px;
+}
+
+.answer_wrapper {
+    font-size: 14px;
+    padding: 0 7px 25px 7px;
+
+}
+
+.ruler {
+    border-bottom: 1px solid black;
+    padding-bottom: 20px;
 }
 
 span.number_rating {
@@ -92,7 +115,8 @@ span.number_rating input[type=radio] {
 }
 
 span.number_rating label:hover {
-    background: #6885F9;
+    background: var(--background-color-one);
+    border: 1px solid var(--background-color-one);
 }
 
 span.number_rating input[type=radio]:last-child {
@@ -101,9 +125,9 @@ span.number_rating input[type=radio]:last-child {
 
 span.number_rating label input[type=radio]:checked~label {
     -webkit-appearance: none;
-
-    margin: 0;
-    background: #6885F9;
+    margin: -1px 0 0px -1px;
+    background: var(--background-color-one);
+    border: 1px solid var(--background-color-one);
 }
 
 span.number_rating label:before {
@@ -116,4 +140,64 @@ span.number_rating label:before {
     text-align: center;
     vertical-align: middle;
     z-index: 2;
+}
+
+.seperator {
+    padding-bottom: 30px;
+}
+
+.guideline {
+    border-top: 1px solid black;
+}
+
+.bold_text {
+    font-weight: bold;
+}
+
+.score_container {
+    display: flex;
+}
+
+.button_container {
+    text-align: center;
+}
+
+.button {
+    -webkit-appearance: none;
+    outline: none;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.calculate_button {
+    background-color: var(--background-color-three);
+    color: white;
+}
+
+.calculate_button:hover {
+    background-color: var(--background-color-four);
+    color: black;
+    border: 2px solid var(--background-color-four);
+}
+
+.total_score {
+    background-color: var(--background-color-two);
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.score_category {
+    text-align: center;
+    padding-top: 20px;
+    color: #1D45E9;
 }
