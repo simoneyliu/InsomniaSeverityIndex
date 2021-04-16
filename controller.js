@@ -1,8 +1,16 @@
 const ISIData = require("./models/ISIData");
 
-// create and save new data
+/**
+ * Create data and save it to the database
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 exports.create = (req, res) => {
-    // validate request
+    var total = 0;
+    var category = "";
+
+    // Validate request
     if (!req.body) {
         res.status(400).send({
             message: "Content can not be emtpy!"
@@ -10,12 +18,15 @@ exports.create = (req, res) => {
         return;
     }
 
-    const total = parseInt(req.body.question1) + parseInt(req.body.question2) +
-        parseInt(req.body.question3) + parseInt(req.body.question4) + parseInt(req.body.question5) +
-        parseInt(req.body.question6) + parseInt(req.body.question7);
-    const category = findCategory(total);
+    // Find total score and category
+    if (req.body.question1) {
+        total = parseInt(req.body.question1) + parseInt(req.body.question2) +
+            parseInt(req.body.question3) + parseInt(req.body.question4) + parseInt(req.body.question5) +
+            parseInt(req.body.question6) + parseInt(req.body.question7);
+        category = findCategory(total);
+    }
 
-    // new data
+    // Create new data
     const isi_data = new ISIData({
         measure: "Insomnia Severity Index",
         time_frame: "2 weeks",
@@ -52,7 +63,7 @@ exports.create = (req, res) => {
         category: category
     });
 
-    // save data in the database
+    // Save data in the database
     isi_data
         .save(isi_data)
         .then(data => {
@@ -61,18 +72,23 @@ exports.create = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "error occurred on create operation"
+                message: err.message || "Error occurred on create operation"
             });
         });
 
 }
 
-// retrieve and return all data or just data by id
+/**
+ * Retrieve and return all data or just data by id
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.find = (req, res) => {
 
     if (req.query.id) {
         const id = req.query.id;
 
+        // Find the data by ID
         ISIData.findById(id)
             .then(data => {
                 if (!data) {
@@ -85,7 +101,7 @@ exports.find = (req, res) => {
             })
             .catch(err => {
                 res.status(500).send({
-                    message: "error retrieving data with id " + id
+                    message: "Error occurred on retrieving data with id " + id
                 })
             })
 
@@ -96,21 +112,25 @@ exports.find = (req, res) => {
             })
             .catch(err => {
                 res.status(500).send({
-                    message: err.message || "error occurred on retriving data"
+                    message: err.message || "Error occurred on retriving all data"
                 })
             })
     }
 
-
 }
 
-// Update a new idetified data by data id
+/**
+ * Update data by id
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
 exports.update = (req, res) => {
     if (!req.body) {
         return res
             .status(400)
             .send({
-                message: "data is empty"
+                message: "Data is empty"
             })
     }
 
@@ -121,7 +141,7 @@ exports.update = (req, res) => {
         .then(data => {
             if (!data) {
                 res.status(404).send({
-                    message: `cannot update data with ${id}. data not found!`
+                    message: `Cannot update data with ${id}. Data not found!?`
                 })
             } else {
                 res.send(data)
@@ -129,12 +149,16 @@ exports.update = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "error occurred on updating data"
+                message: "Error occurred on updating data"
             })
         })
 }
 
-// Delete a data with specified data id in the request
+/**
+ * Delete data with a specified data id
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.delete = (req, res) => {
     const id = req.params.id;
 
@@ -142,17 +166,17 @@ exports.delete = (req, res) => {
         .then(data => {
             if (!data) {
                 res.status(404).send({
-                    message: `cannot delete with id ${id}. id not found`
+                    message: `Cannot delete with id ${id}. Data not found!?`
                 })
             } else {
                 res.send({
-                    message: "data was deleted successfully!"
+                    message: "Data was deleted successfully!"
                 })
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "could not delete data with id=" + id
+                message: "Could not delete data with id=" + id
             });
         });
 }
@@ -160,6 +184,11 @@ exports.delete = (req, res) => {
 
 // Helper functions
 
+/**
+ * Find the category of the sleep difficulty based on total score
+ * @param {Integer} score 
+ * @returns {String} category
+ */
 function findCategory(score) {
     if (score >= 0 && score <= 7) {
         return "No clinically significant insomnia";

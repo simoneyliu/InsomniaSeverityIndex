@@ -81,7 +81,7 @@ span.number_rating>label {
     border-radius: 10px;
     height: 33px;
     margin: 0 4px;
-    width: calc(16% - 5px);
+    width: calc(20% - 4px);
     float: left;
     cursor: pointer;
 }
@@ -93,7 +93,7 @@ span.number_rating label {
     height: 33px;
     border-radius: 10px;
     margin: 0 4px;
-    width: calc(16% - 5px);
+    width: calc(20% - 4px);
     float: left;
     cursor: pointer;
 }
@@ -200,4 +200,9 @@ span.number_rating label:before {
     text-align: center;
     padding-top: 20px;
     color: #1D45E9;
+}
+
+.credit {
+    font-style: italic;
+    font-size: 12px;
 }
