@@ -17,7 +17,7 @@ DB_CONNECTION = mongodb+srv://<username>:<password>@cluster0.ron1z.mongodb.net/m
 - Replace myFirstDatabase with the name of the database that connections will use by default. 
 - **Note**: Replace the whole string after `DB_CONNECTION =` as you wish to connect to your database
 
-## Excute the Project
+## Execute the Project
 run `npm start`
 
 ---
