@@ -1,3 +1,5 @@
+<img src="https://user-images.githubusercontent.com/31769955/118023394-8027f500-b32b-11eb-9f30-77e275c4ed0e.gif" width="250"/>
+
 # InsomniaSeverityIndex
 In this project, I created a CRUD API application using NodeJS, ExpressJS, and MongoDB
 
